@@ -26,7 +26,7 @@ namespace FirstLab.tests
             const int x4 = 7;
             const int y4 = 8;
 
-            if(algorithms.outputResult(x1, y1, x2, y2, x3, y3, x4, y4))
+            if(algorithms.outputResultForTests(x1, y1, x2, y2, x3, y3, x4, y4))
             {
                 return true;    
             } else { 
@@ -51,7 +51,7 @@ namespace FirstLab.tests
             const int x4 = 7;
             const int y4 = 8;
 
-            if (algorithms.outputResult(x1, y1, x2, y2, x3, y3, x4, y4))
+            if (algorithms.outputResultForTests(x1, y1, x2, y2, x3, y3, x4, y4))
             {
                 return true;
             }
@@ -78,7 +78,7 @@ namespace FirstLab.tests
             const int x4 = 7;
             const int y4 = 8;
 
-            if (algorithms.outputResult(x1, y1, x2, y2, x3, y3, x4, y4))
+            if (algorithms.outputResultForTests(x1, y1, x2, y2, x3, y3, x4, y4))
             {
                 return true;
             }

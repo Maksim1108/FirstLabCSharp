@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,22 @@ namespace FirstLab.fileWork
 {
     internal class FileWork
     {
-        public bool saveOnFile()
+        public void saveOnFile(double intersection1, double intersection2)
         {
-            return false;
+            Console.Write("Введите имя файла для сохранения:\n> ");
+            string filename = Console.ReadLine();
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(filename))
+                {
+                    writer.WriteLine($"{intersection1} {intersection2}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка при сохранении данных: " + ex.Message);
+            }
         }
 
         public bool loadFromFile(string fileName, out double x1, out double y1, out double x2, out double y2, out double x3, out double y3, out double x4, out double y4)
@@ -36,7 +50,6 @@ namespace FirstLab.fileWork
                             y4 = double.Parse(coordinates[7]);
                         }
                         Console.WriteLine("\nДанные успешно загружены!");
-                        //Console.WriteLine($"{x1},{y1},{x2},{y2},{x3},{y3},{x4},{y4}");
                     }
                 }
             }

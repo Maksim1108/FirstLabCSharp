@@ -60,12 +60,29 @@ namespace FirstLab.validation
             }
         }
 
-        public CHOICE getChoice()
+        public SUBMENU getSubMenuChoice()
         {
             while (true)
             {
-                CHOICE userInput = 0;
-                if (!CHOICE.TryParse(Console.ReadLine(), out userInput))
+                SUBMENU userInput = 0;
+                if (!SUBMENU.TryParse(Console.ReadLine(), out userInput))
+                {
+                    Console.WriteLine("Попробуйте еще раз!");
+                    Console.Write("> ");
+                }
+                else
+                {
+                    return userInput;
+                }
+            }
+        }
+
+        public INPUT_CHOICE getChoice()
+        {
+            while (true)
+            {
+                INPUT_CHOICE userInput = 0;
+                if (!INPUT_CHOICE.TryParse(Console.ReadLine(), out userInput))
                 {
                     Console.WriteLine("Попробуйте еще раз!");
                     Console.Write("> ");

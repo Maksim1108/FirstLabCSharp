@@ -19,6 +19,7 @@ class Program
         MENU_ITEMS userMenuChoice;
 
         double x1, y1, x2, y2, x3, y3, x4, y4;
+
         string filePath;
 
         interfacee.showInfo();
@@ -32,7 +33,8 @@ class Program
             switch (userMenuChoice)
             {
                 case MENU_ITEMS.START_PROGRAMM:
-                    CHOICE choice;
+                    INPUT_CHOICE choice;
+                    SUBMENU subMenuChoice;
                     interfacee.showInputTypeChoice();
                     do
                     {
@@ -40,7 +42,7 @@ class Program
                         
                         switch(choice)
                         {
-                            case CHOICE.BY_HANDS:
+                            case INPUT_CHOICE.BY_HANDS:
                                 // Ввод координат прямоугольника
                                 Console.WriteLine("Введите координаты прямоугольника:");
                                 Console.WriteLine("Верхняя левая точка (x1, y1): ");
@@ -68,25 +70,76 @@ class Program
                                 y4 = double.Parse(Console.ReadLine());
 
                                 // Проверка пересечения
-                                algorithms.outputResult(x1, y1, x2, y2, x3, y3, x4, y4);
+                                //algorithms.outputResult(x1, y1, x2, y2, x3, y3, x4, y4);
 
-                                Console.ReadLine();
+                                if (algorithms.doIntersect(x1, y1, x2, y2, x3, y3, x4, y4))
+                                {
+                                    // Нахождение координат точек пересечения
+                                    double[] intersection = algorithms.findIntersection(x1, y1, x2, y2, x3, y3, x4, y4);
+                                    Console.WriteLine($"\nОтрезок и прямоугольник пересекаются. Координаты точки пересечения: ({intersection[0]}, {intersection[1]})\n");
+                                    
+                                    if(intersection.Length > 0)
+                                    {
+                                        Console.WriteLine("Хотите сохранить координаты точки пересечения?\n");
+                                        interfacee.showChoice();
+                                        subMenuChoice = inputValidation.getSubMenuChoice();
+
+                                        switch (subMenuChoice)
+                                        {
+                                            case SUBMENU.YES:
+                                                fileWork.saveOnFile(intersection[0], intersection[1]);
+                                                Console.WriteLine("\nДанные успешно сохранены !");
+                                                break;
+                                            case SUBMENU.NO:
+                                                Console.WriteLine("\nВы решили не сохранять данные в файл");
+                                                break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\nОтрезок и прямоугольник не пересекаются.\n");
+                                }
                                 break;
 
-                            case CHOICE.LOAD_FROM_FILE:
+                            case INPUT_CHOICE.LOAD_FROM_FILE:
                                 Console.WriteLine("\n[!]Загрузка из файла");
                                 Console.Write("\nВведите название файла:\n> ");
                                 filePath = Console.ReadLine();
                                 fileWork.loadFromFile(filePath, out x1, out y1, out x2, out y2, out x3, out y3, out x4, out y4);
-                                algorithms.outputResult(x1, y1, x2, y2, x3, y3, x4, y4);
+
+                                if (algorithms.doIntersect(x1, y1, x2, y2, x3, y3, x4, y4))
+                                {
+                                    // Нахождение координат точек пересечения
+                                    double[] intersection = algorithms.findIntersection(x1, y1, x2, y2, x3, y3, x4, y4);
+                                    Console.WriteLine($"\nОтрезок и прямоугольник пересекаются. Координаты точки пересечения: ({intersection[0]}, {intersection[1]})\n");
+
+                                    if (intersection.Length > 0)
+                                    {
+                                        Console.WriteLine("Хотите сохранить координаты точки пересечения?\n");
+                                        interfacee.showChoice();
+                                        subMenuChoice = inputValidation.getSubMenuChoice();
+
+                                        switch (subMenuChoice)
+                                        {
+                                            case SUBMENU.YES:
+                                                fileWork.saveOnFile(intersection[0], intersection[1]);
+                                                Console.WriteLine("\nДанные успешно сохранены !");
+                                                break;
+                                            case SUBMENU.NO:
+                                                Console.WriteLine("\nВы решили не сохранять данные в файл");
+                                                break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\nОтрезок и прямоугольник не пересекаются.\n");
+                                }
                                 break;
                         }
-                    } while (choice != CHOICE.BY_HANDS && choice != CHOICE.LOAD_FROM_FILE);
+                    } while (choice != INPUT_CHOICE.BY_HANDS && choice != INPUT_CHOICE.LOAD_FROM_FILE);
                     
-                    break;
-
-                case MENU_ITEMS.SAVE:
-                    tests.runAllTests();
                     break;
 
                 case MENU_ITEMS.START_TESTS:

@@ -15,7 +15,7 @@ namespace FirstLab.interfacee
 
         public void showMenu() 
         {
-            Console.WriteLine("Меню: \n[1] Запуск программы \n[2] Cохранить в файл \n[3] Запуск тестов \n[4] Выход");       
+            Console.WriteLine("Меню: \n[1] Запуск программы \n[2] Запуск тестов \n[3] Выход");       
         }
 
         public void showInputTypeChoice()
@@ -26,7 +26,7 @@ namespace FirstLab.interfacee
 
         public void showChoice()
         {
-            Console.WriteLine("[1] Да \n [2] Нет");
+            Console.Write("[1] Да \n[2] Нет\n> ");
         }
     }
 }
